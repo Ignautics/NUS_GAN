@@ -2,7 +2,7 @@ import os
 import scipy.misc
 import numpy as np
 
-from model import DCGAN
+from model import NUS_GAN
 from utils import pp, visualize, to_json, show_all_variables
 
 import tensorflow as tf
@@ -47,7 +47,7 @@ def main(_):
 
   with tf.Session(config=run_config) as sess:
 
-    dcgan = DCGAN(
+    nus_gan = NUS_GAN(
           sess,
           input_width=FLAGS.input_width,
           input_height=FLAGS.input_height,
@@ -66,9 +66,9 @@ def main(_):
     show_all_variables()
 
     if FLAGS.train:
-      dcgan.train(FLAGS)
+      nus_gan.train(FLAGS)
     else:
-      if not dcgan.load(FLAGS.checkpoint_dir)[0]:
+      if not nus_gan.load(FLAGS.checkpoint_dir)[0]:
         raise Exception("[!] Train a model first, then run test mode")
       
 

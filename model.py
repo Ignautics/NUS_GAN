@@ -12,7 +12,7 @@ def conv_out_size_same(size, stride):
     return int(math.ceil(float(size) / float(stride)))
 
 
-class DCGAN(object):
+class NUS_GAN(object):
     def __init__(self, sess, input_height=218, input_width=178, crop=True, batch_size=50, sample_num=50,
                  output_height=218, output_width=178, image_num = 32, y_dim=40, z_dim=100, gf_dim=64,
                  L1_lambda=100, L2_lambda1=50, L2_lambda2=50, L2_lambda3=50,
