@@ -77,7 +77,7 @@ class NUS_GAN(object):
         self.c_dim = c_dim
 
         print("start load image")
-        self.train_x, self.wrong_x = self.load_image()
+        self.train_x = self.load_image()
         self.train_y = self.load_label(len(self.train_x))
         print("load label ok")
 
@@ -113,7 +113,7 @@ class NUS_GAN(object):
 
         self.D_real_logits, self.y_real_logits = \
             self.discriminator(inputs, reuse=False) #batch_size*1
-        self.D_fake_logits, self.c_fake_logits = \
+        self.D_fake_logits, self.y_fake_logits = \
             self.discriminator(self.G, reuse=True)
 
         self.D_real = tf.nn.sigmoid(self.D_real_logits)
@@ -381,7 +381,7 @@ class NUS_GAN(object):
         
         cnt = 0
         for line in open("./data/label.txt", "r"):
-            train_y[cnt] = np.float([ch for ch in line[0:-1]])
+            train_y[cnt] = np.array([np.float(ch) for ch in line[0:-1]])
             cnt = cnt + 1
 
         return train_y
@@ -400,11 +400,13 @@ class NUS_GAN(object):
         #img_B = img_B.reshape(img_B.shape[0], img_B.shape[1], img_B.shape[2], 1)
         print("for circulation is over")
         order = np.arange(0, img_B.shape[0], 1)
+        print("for tdc test 0")
         random.shuffle(order)
-        wrg_B = img_B[order]
+        print("for tdc test 1")
+        #wrg_B = img_B[order]
 
         print("load_image ok")
-        return img_B, wrg_B
+        return img_B
 
     @property
     def model_dir(self):
